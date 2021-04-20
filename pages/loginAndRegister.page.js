@@ -14,24 +14,15 @@ class LoginAndRegisterPage {
         return elementUtil.isElementDisplayed(this.loginAndRegisterPopUp);
     }
 
-    enterEmailId(emailId) {
-        return elementUtil.doSetValue(this.emailTextField, emailId);
+    doLogin(emailId, password) {
+        elementUtil.doSetValue(this.emailTextField, emailId);
+        elementUtil.doSetValue(this.passwordTextField, password);
+        elementUtil.doClick(this.newsLetterSubscribeCheckbox);
+        elementUtil.doClick(this.termsCheckbox);
+        elementUtil.doClick(this.submitBtn);
+
+        return elementUtil.waitForElementToBeDisplayed(this.loginAndRegisterPopUp, true, 3000);
     }
 
-    enterPassword(password) {
-        return elementUtil.doSetValue(this.passwordTextField, password);
-    }
-
-    clickOnNewsLetterSubscribeCheckbox() {
-        return elementUtil.doClick(this.newsLetterSubscribeCheckbox);
-    }
-
-    clickOnAcceptTermsCheckbox() {
-        return elementUtil.doClick(this.termsCheckbox);
-    }
-
-    clickOnSubmit() {
-        return elementUtil.doClick(this.submitBtn);
-    }
 }
 module.exports = new LoginAndRegisterPage();

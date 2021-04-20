@@ -1,5 +1,4 @@
 const elementUtil = require('../utils/elementUtils');
-
 class AppHomePage {
 
     // Locators
@@ -26,14 +25,15 @@ class AppHomePage {
             elementUtil.doClick(this.acceptCookiesBtn);
         }
         if (elementUtil.isElementDisplayed(this.shopToClubOverlayPopUp)) {
-            console.log('--------SHOP TO CLUB OVERLAY POP UP--------');
+            console.log('--------PAGE REFRESH TO DISMISS OVERLAY POP UP--------');
             elementUtil.doRefresh();
         }
         return elementUtil.isElementDisplayed(this.appHomePage);
     }
 
-    enterSearchItem(searchValue) {
-        return elementUtil.doSetValue(this.searchInputTextField, searchValue);
+    searchForProduct(searchValue) {
+        elementUtil.doSetValue(this.searchInputTextField, searchValue);
+        return elementUtil.doKeyStrokes('Enter');
     }
 
     clickOnSearchIcon() {

@@ -1,5 +1,8 @@
 class ElementUtils {
 
+    /**
+     * Method to navigate back to the previous page
+     */
     goBack() {
         try {
             browser.back();
@@ -10,6 +13,9 @@ class ElementUtils {
         }
     }
 
+    /**
+     * Method to refresh the current page
+     */
     doRefresh() {
         try {
             browser.refresh();
@@ -20,6 +26,10 @@ class ElementUtils {
         }
     }
 
+    /**
+     * Method to perform key strokes for the given key
+     * @param {*} key - Provide Key such as 'Enter', 'Escape'
+     */
     doKeyStrokes(key) {
         try {
             browser.keys(key);
@@ -30,33 +40,42 @@ class ElementUtils {
         }
     }
 
-
+    /**
+     * Method to perform click operation in the given element
+     * @param {*} element 
+     */
     doClick(element) {
-        try {
-            element.waitForDisplayed();
-            element.click();
-            return true;
-        }
-        catch (ex) {
-            return false;
-        }
+        element.waitForDisplayed(); // Wait for an element for the provided amount of milliseconds to be displayed or not displayed (default: 500ms)
+        element.click();
     }
 
+    /**
+     * Method to set value in the given element
+     * @param {*} element 
+     * @param {*} value 
+     */
     doSetValue(element, value) {
-        try {
-            element.waitForDisplayed();
-            element.setValue(value);
-            return true;
-        }
-        catch (ex) {
-            return false;
-        }
+        element.waitForDisplayed();
+        element.setValue(value);
     }
 
+    /**
+     * Method to Wait for an element for the provided amount of milliseconds to be displayed or not displayed.
+     * @param {*} element 
+     * @param {*} doReverse 
+     */
+    waitForElementToBeDisplayed(element, doReverse = false, timeOutInMs) {
+        return element.waitForDisplayed({ timeout: timeOutInMs, reverse: doReverse });
+    }
+
+    /**
+     * Method to get the text content from a DOM-element
+     * @param {*} element 
+     */
     doGetText(element) {
         let getElementText;
         try {
-            element.waitForDisplayed();
+            element.waitForDisplayed(2000);
             getElementText = element.getText();
             return getElementText;
         }
@@ -65,6 +84,10 @@ class ElementUtils {
         }
     }
 
+    /**
+     * Method to return true if the selected DOM-element is displayed
+     * @param {*} element 
+     */
     isElementDisplayed(element) {
         try {
             element.waitForDisplayed();
