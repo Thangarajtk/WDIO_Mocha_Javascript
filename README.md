@@ -1,9 +1,15 @@
 # WebDriverIO_Mocha_Javascript
-This is a sample project to automate web applications that uses WebdriverIO (v6) with Mocha framework and JavaScript. This framework was designed with Page Object Pattern.
+[WebdriverIO 6.10.11](http://webdriver.io/)
 
-## Pre-requisite
-1. Install NodeJS.
-2. Download IDE - Visual Studio Code.
+<img src = "https://miro.medium.com/max/2488/1*2ntKtVBowGdACso6Gcmy1A.jpeg" height = "400">
+
+WebdriverIO is a progressive automation framework built to automate modern web and mobile applications. It simplifies the interaction with your app and provides a set of plugins that help you create a scalable, robust and flakiness test suite.
+
+This is a sample WebdriverIO (v6) with Mocha framework project to automate web applications using Javascript. This framework was designed with Page Object Pattern.
+
+## Pre-requisites
+1. Install NodeJS - `https://nodejs.org/en/download/`
+2. Download Visual Studio Code IDE based on the OS - `https://code.visualstudio.com/download`
 
 ## Installation
 1. Clone the project from GitHub. 

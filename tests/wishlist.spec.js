@@ -16,9 +16,9 @@ describe('Add and Remove product from Wishlist Test:', function () {
         expect(AppHomePage.isAppHomePageDisplayed()).to.equal(true);
     })
 
-    it('Should search for the product with keyword - ' + constants.SEARCH_KEYWORD, function () {
+    it('Should search for the product with keyword - \"' + constants.search.SEARCH_KEYWORD + '\"', function () {
 
-        expect(AppHomePage.searchForProduct(constants.SEARCH_KEYWORD)).to.equal(true);
+        expect(AppHomePage.searchForProduct(constants.search.SEARCH_KEYWORD)).to.equal(true);
     })
 
     it('Should display product listing page for the searched product', function () {
@@ -26,10 +26,10 @@ describe('Add and Remove product from Wishlist Test:', function () {
         expect(productListingPage.isProductListingPageDisplayed()).to.equal(true);
     })
 
-    it('Should verify the title on the product listing page matches the searched product keyword - ' + constants.SEARCH_KEYWORD, function () {
+    it('Should verify the title on the product listing page matches the searched product keyword - \"' + constants.search.SEARCH_KEYWORD + '\"', function () {
         const title = productListingPage.verifyTitleOnProductListingSection();
 
-        expect(title).to.equal(constants.SEARCH_KEYWORD);
+        expect(title).to.equal(constants.search.SEARCH_KEYWORD);
     })
 
     it('Should get the name of the product and click on Watchlist icon in the product to add it to Watchlist', function () {
@@ -54,7 +54,7 @@ describe('Add and Remove product from Wishlist Test:', function () {
         expect(watchlistPage.isWishlistPageDisplayed()).to.equal(true);
     })
 
-    it('Should verify the product added to Wishlist is displayed on the Watchlist page with correct product title', function () {
+    it('Should verify the watchlisted product is displayed on the Watchlist page with correct product title', function () {
         
         expect(watchlistPage.verifyProductAddedToWatchlistIsDisplayed()).to.equal(productTitle);
     })

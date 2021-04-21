@@ -10,10 +10,18 @@ class LoginAndRegisterPage {
     get termsCheckbox() { return $("input[name='isTermsAccepted']") }
 
     //Methods
+     /**
+     * Method to check if the login and register overlay pop up is displayed
+     */
     isLoginAndRegisterPopUpDisplayed() {
         return elementUtil.isElementDisplayed(this.loginAndRegisterPopUp);
     }
 
+    /**
+     * Method to login with correct credentials
+     * @param {*} emailId 
+     * @param {*} password 
+     */
     doLogin(emailId, password) {
         elementUtil.doSetValue(this.emailTextField, emailId);
         elementUtil.doSetValue(this.passwordTextField, password);

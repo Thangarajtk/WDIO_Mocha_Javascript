@@ -6,15 +6,13 @@
   "scripts": {
     "test": "./node_modules/.bin/wdio wdio.conf.js --suite wishlist",
     "cleanup": "rmdir /Q /S Reporting",
-    "allureReport": "./node_modules/.bin/allure generate ./Reporting/video-reports/allure-raw -o ./Reporting/video-reports/allure-report --clean && allure open ./Reporting/video-reports/allure-report",
-    "generateMochawesome": "marge Results/wdio-ma-merged.json"
+    "allureReport": "./node_modules/.bin/allure generate ./Reporting/video-reports/allure-raw -o ./Reporting/video-reports/allure-report --clean && allure open ./Reporting/video-reports/allure-report"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@wdio/allure-reporter": "^6.10.6",
     "@wdio/cli": "^6.10.10",
-    "@wdio/junit-reporter": "^6.10.6",
     "@wdio/local-runner": "^6.10.10",
     "@wdio/mocha-framework": "^6.10.10",
     "@wdio/selenium-standalone-service": "^6.10.10",
@@ -24,7 +22,6 @@
     "chai": "^4.2.0",
     "chai-webdriverio": "^1.0.0",
     "mocha": "^8.2.1",
-    "mochawesome-report-generator": "^3.1.5",
     "wdio-chromedriver-service": "^6.0.4",
     "wdio-mochawesome-reporter": "^3.2.0",
     "wdio-video-reporter": "^3.1.1",
