@@ -23,13 +23,12 @@ exports.config = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    // specs: [
-    // ],
-    suites: {
-        wishlist: [
-            './tests/wishlist.spec.js',
-        ],
-    },
+    specs: [
+        './tests/wishlist.spec.js',
+    ],
+
+    // suites: { 
+    // }, 
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -62,12 +61,15 @@ exports.config = {
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
         maxInstances: 1,
-        //
         browserName: 'chrome',
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
+    },
+    {
+        maxInstances: 1,
+        browserName: 'firefox',
     }],
     //
     // ===================
@@ -142,7 +144,7 @@ exports.config = {
         }],
         ['allure', {
             outputDir: './Reporting/video-reports/allure-raw',
-            disableWebdriverStepsReporting: false,
+            disableWebdriverStepsReporting: true,
             disableWebdriverScreenshotsReporting: false,
         }]
     ],
