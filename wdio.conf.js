@@ -13,7 +13,9 @@ exports.config = {
     runner: 'local',
     //
     // Override default path ('/wd/hub') for chromedriver service.
-    path: '/',
+    hostname: 'localhost',
+    port: 4444,
+    path: '/wd/hub',
     //
     // ==================
     // Specify Test Files
@@ -24,7 +26,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './tests/wishlist.spec.js',
+        './test/specs/example.e2e.js'
     ],
 
     // suites: { 
@@ -49,27 +51,63 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 10,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 1,
-        browserName: 'chrome',
+    //     maxInstances: 5,
+    //     browserName: 'chrome',
+    //     acceptInsecureCerts: true,
+    //     'goog:chromeOptions': {
+    //         // to run chrome headless the following flags are required
+    //         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+    //         // args: ['--headless', '--disable-gpu'],
+    //         args: ['--headless'
+    //             ,'--disable-gpu'
+    //             ,'--no-sandbox'
+    //             ,'--verbose'
+    //             ,'--whitelisted-ips'
+    //             ,'--disable-extensions'
+    //             ,'--disable-dev-shm-usage'
+    //             ,'--remote-debugging-port=9222'
+    //             ,'--window-size=1680,2400'
+    //         ],
+    //     }
+    //     //
+    //     // Parameter to ignore some or all default flags
+    //     // - if value is true: ignore all DevTools 'default flags' and Puppeteer 'default arguments'
+    //     // - if value is an array: DevTools filters given default arguments
+    //     // 'wdio:devtoolsOptions': {
+    //     //    ignoreDefaultArgs: true,
+    //     //    ignoreDefaultArgs: ['--disable-sync', '--disable-extensions'],
+    //     // }
+    // },
+    // {
+        // maxInstances can get overwritten per capability. So if you have an in house Selenium
+        // grid with only 5 firefox instance available you can make sure that not more than
+        // 5 instance gets started at a time.
+        maxInstances: 5,
+        browserName: 'firefox',
+        specs: [
+            './test/specs/example.e2e.js'
+        ],
+        'moz:firefoxOptions': {
+            // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
+            // args: ['-headless']
+        },
         // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
+        // it is possible to configure which logTypes to exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
-    },
-    {
-        maxInstances: 1,
-        browserName: 'firefox',
+        //
+        // Parameter to ignore some or all Puppeteer default arguments
+        // ignoreDefaultArgs: ['-foreground'], // set value to true to ignore all default arguments
     }],
     //
     // ===================
@@ -94,6 +132,9 @@ exports.config = {
     //     '@wdio/applitools-service': 'info'
     // },
     //
+    // Set directory to store all logs into
+    // outputDir: __dirname,
+
     sync: true,
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
@@ -119,7 +160,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone'],
+    services: ['selenium-standalone', 'docker'],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -131,6 +172,10 @@ exports.config = {
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
+    // Delay in seconds between the spec file retry attempts
+    // specFileRetriesDelay: 0,
+    // Whether or not retried specfiles should be retried immediately or deferred to the end of the queue
+    // specFileRetriesDeferred: false,
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
@@ -214,6 +259,11 @@ exports.config = {
         global.should = chai.should;
         global.expect = chai.expect;
         global.to = chai.to;
+
+        const allure = require('@wdio/allure-reporter').default
+        global.allure = allure;
+
+        allure.addEnvironment("BROWSER", browser.capabilities.browserName);
     },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
@@ -231,7 +281,9 @@ exports.config = {
      * Function to be executed after a test (in Mocha/Jasmine).
      */
     afterTest: function (test, context, { error, result, duration, passed, retries }) {
-        browser.takeScreenshot();
+        if (error) {
+            browser.takeScreenshot();
+        }
     },
 
     /**

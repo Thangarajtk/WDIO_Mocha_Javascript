@@ -1,5 +1,5 @@
-const elementUtil = require('../utils/elementUtils');
-const dynamicSelectorUtil = require('../utils/dynamicSelectorUtils');
+const elementUtil = require('../../../utils/elementUtils');
+const dynamicSelectorUtil = require('../../../utils/dynamicSelectorUtils');
 
 class ProductListingPage {
 

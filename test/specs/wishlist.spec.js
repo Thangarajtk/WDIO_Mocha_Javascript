@@ -1,11 +1,11 @@
-const AppHomePage = require('../pages/appHome.page')
-const page = require('../pages/page')
-const productListingPage = require('../pages/productListing.page')
-const loginAndRegisterPage = require('../pages/loginAndRegister.page')
-const watchlistPage = require('../pages/wishlist.page')
+const AppHomePage = require('../pageobjects/e-commerce/appHome.page')
+const page = require('../pageobjects/e-commerce/page')
+const productListingPage = require('../pageobjects/e-commerce/productListing.page')
+const loginAndRegisterPage = require('../pageobjects/e-commerce/loginAndRegister.page')
+const watchlistPage = require('../pageobjects/e-commerce/wishlist.page')
 
-const constants = require('../lib/constants')
-const configData = require('../lib/config')
+const constants = require('../../lib/constants')
+const configData = require('../../lib/config')
 
 let productTitle;
 

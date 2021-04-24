@@ -1,4 +1,4 @@
-const elementUtil = require('../utils/elementUtils')
+const elementUtil = require('../../../utils/elementUtils')
 
 class LoginAndRegisterPage {
     //page locators

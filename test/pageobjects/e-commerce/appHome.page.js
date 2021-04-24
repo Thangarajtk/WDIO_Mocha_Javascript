@@ -1,5 +1,5 @@
-const elementUtil = require('../utils/elementUtils');
-const constants = require('../lib/constants');
+const elementUtil = require('../../../utils/elementUtils');
+const constants = require('../../../lib/constants');
 class AppHomePage {
 
     // Locators
@@ -25,11 +25,9 @@ class AppHomePage {
      */
     isAppHomePageDisplayed() {
         if (elementUtil.isElementDisplayed(this.otSdkContainerPopUp)) {
-            console.log('--------ACCEPT COOKIES--------');
             elementUtil.doClick(this.acceptCookiesBtn);
         }
         if (elementUtil.isElementDisplayed(this.shopToClubOverlayPopUp)) {
-            console.log('--------PAGE REFRESH TO DISMISS OVERLAY POP UP--------');
             elementUtil.doRefresh();
         }
         return elementUtil.isElementDisplayed(this.appHomePage);
