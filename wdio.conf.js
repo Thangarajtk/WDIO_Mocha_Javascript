@@ -26,7 +26,8 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/example.e2e.js'
+        './test/specs/example.e2e.js',
+        './test/specs/orangeHrm.spec.js'
     ],
 
     // suites: { 
@@ -58,44 +59,39 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-    //     maxInstances: 5,
-    //     browserName: 'chrome',
-    //     acceptInsecureCerts: true,
-    //     'goog:chromeOptions': {
-    //         // to run chrome headless the following flags are required
-    //         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-    //         // args: ['--headless', '--disable-gpu'],
-    //         args: ['--headless'
-    //             ,'--disable-gpu'
-    //             ,'--no-sandbox'
-    //             ,'--verbose'
-    //             ,'--whitelisted-ips'
-    //             ,'--disable-extensions'
-    //             ,'--disable-dev-shm-usage'
-    //             ,'--remote-debugging-port=9222'
-    //             ,'--window-size=1680,2400'
-    //         ],
-    //     }
-    //     //
-    //     // Parameter to ignore some or all default flags
-    //     // - if value is true: ignore all DevTools 'default flags' and Puppeteer 'default arguments'
-    //     // - if value is an array: DevTools filters given default arguments
-    //     // 'wdio:devtoolsOptions': {
-    //     //    ignoreDefaultArgs: true,
-    //     //    ignoreDefaultArgs: ['--disable-sync', '--disable-extensions'],
-    //     // }
-    // },
-    // {
+        maxInstances: 5,
+        browserName: 'chrome',
+        acceptInsecureCerts: true,
+        'goog:chromeOptions': {
+            // to run chrome headless the following flags are required
+            // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+            // args: ['--headless', '--disable-gpu'],
+            args: [
+                '--verbose'
+                , '--disable-gpu'
+                , '--disable-dev-shm-usage'
+                , '--remote-debugging-port=9222'
+                , '--no-sandbox'
+            ],
+        }
+        //
+        // Parameter to ignore some or all default flags
+        // - if value is true: ignore all DevTools 'default flags' and Puppeteer 'default arguments'
+        // - if value is an array: DevTools filters given default arguments
+        // 'wdio:devtoolsOptions': {
+        //    ignoreDefaultArgs: true,
+        //    ignoreDefaultArgs: ['--disable-sync', '--disable-extensions'],
+        // }
+    },
+    {
         // maxInstances can get overwritten per capability. So if you have an in house Selenium
         // grid with only 5 firefox instance available you can make sure that not more than
         // 5 instance gets started at a time.
         maxInstances: 5,
         browserName: 'firefox',
         specs: [
-            './test/specs/example.e2e.js'
+            './test/specs/example.e2e.js',
+            './test/specs/orangeHrm.spec.js'
         ],
         'moz:firefoxOptions': {
             // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
@@ -116,7 +112,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'error',
+    logLevel: 'info',
     //
     // Set specific log levels per logger
     // loggers:
@@ -151,7 +147,7 @@ exports.config = {
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
-    connectionRetryTimeout: 90000,
+    connectionRetryTimeout: 120000,
     //
     // Default request retries count
     connectionRetryCount: 3,
@@ -190,7 +186,7 @@ exports.config = {
         ['allure', {
             outputDir: './Reporting/video-reports/allure-raw',
             disableWebdriverStepsReporting: true,
-            disableWebdriverScreenshotsReporting: false,
+            disableWebdriverScreenshotsReporting: true,
         }]
     ],
 
@@ -201,6 +197,40 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000,
         bail: true
+    },
+    // For convenience, if ts-node or @babel/register modules are detected
+    // they are automatically loaded for config parsing so that TypeScript and
+    // future ES features can be used in wdio configs, and are also
+    // automatically loaded for test running so that tests can be written
+    // using TypeScript and future ES features.
+    // Because this may not be ideal in every situation, the following options
+    // may be used to customize the loading for test running, incase it has
+    // other requirements.
+    autoCompileOpts: {
+        //
+        // To disable auto-loading entirely set this to false.
+        autoCompile: true, // <boolean> Disable this to turn off autoloading. Note: When disabling, you will need to handle calling any such libraries yourself.
+        //
+        // If you have ts-node installed, you can customize how options are passed to it here:
+        // Any valid ts-node config option is allowed. Alternatively the ENV Vars could also be used instead of this.
+        // See also: https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
+        // See also RegisterOptions in https://github.com/TypeStrong/ts-node/blob/master/src/index.ts
+        tsNodeOpts: {
+            transpileOnly: true,
+            project: 'tsconfig.json'
+        },
+        // If you have tsconfig-paths installed and provide a tsConfigPathsOpts
+        // option, it will be automatically registered during bootstrap.
+        tsConfigPathsOpts: {
+            baseUrl: './'
+        },
+        //
+        // If @babel/register is installed, you can customize how options are passed to it here:
+        // Any valid @babel/register config option is allowed.
+        // https://babeljs.io/docs/en/babel-register#specifying-options
+        babelOpts: {
+            ignore: []
+        },
     },
     //
     // =====
@@ -326,10 +356,26 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    //  onComplete: function (exitCode, config, capabilities, results) {
-    //     const mergeResults = require('wdio-mochawesome-reporter/mergeResults');
-    //     mergeResults('./Reporting/mochawesome-results', "wdio-*");
-    // },
+    onComplete: function () {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', './Reporting/video-reports/allure-report', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function (exitCode) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+    }
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
