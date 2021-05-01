@@ -1,5 +1,5 @@
-const LoginPage = require('../pageobjects/login.page');
-const SecurePage = require('../pageobjects/secure.page');
+const LoginPage = require('../pageobjects/herokuApp/login.page');
+const SecurePage = require('../pageobjects/herokuApp/secure.page');
 
 describe('My Login application', () => {
     it('should login with valid credentials', () => {

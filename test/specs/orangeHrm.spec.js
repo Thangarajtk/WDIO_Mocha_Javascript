@@ -1,5 +1,6 @@
 import LoginPage from '../pageobjects/orangeHrmDemo/login.page';
 import DashboardPage from '../pageobjects/orangeHrmDemo/dashboard.page';
+import { waitAndSetValue } from '../../utils/helper';
 
 describe('OrangeHRM Login Test', () => {
 
@@ -9,8 +10,8 @@ describe('OrangeHRM Login Test', () => {
     });
 
     it('should allow access with correct credential', () => {
-        LoginPage.username.setValue('Admin');
-        LoginPage.password.setValue('admin123');
+        waitAndSetValue(LoginPage.username, 'Admin', 1000);
+        waitAndSetValue(LoginPage.password, 'admin123', 500);
         LoginPage.loginBtn.click();
 
         expect(DashboardPage.welcomeUser).to.exist;

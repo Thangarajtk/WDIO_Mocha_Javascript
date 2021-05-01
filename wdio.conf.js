@@ -1,4 +1,8 @@
 const video_reporter = require('wdio-video-reporter');
+const allure = require('@wdio/allure-reporter').default
+
+global.allure = allure;
+
 /**
  * This is the Configuration file for WebDriverIO
  */
@@ -65,14 +69,7 @@ exports.config = {
         'goog:chromeOptions': {
             // to run chrome headless the following flags are required
             // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-            // args: ['--headless', '--disable-gpu'],
-            args: [
-                '--verbose'
-                , '--disable-gpu'
-                , '--disable-dev-shm-usage'
-                , '--remote-debugging-port=9222'
-                , '--no-sandbox'
-            ],
+            args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu'],
         }
         //
         // Parameter to ignore some or all default flags
@@ -100,7 +97,7 @@ exports.config = {
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
+        excludeDriverLogs: ['bugreport', 'server'],
         //
         // Parameter to ignore some or all Puppeteer default arguments
         // ignoreDefaultArgs: ['-foreground'], // set value to true to ignore all default arguments
@@ -112,7 +109,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    // logLevel: 'info',
     //
     // Set specific log levels per logger
     // loggers:
@@ -123,13 +120,13 @@ exports.config = {
     // - @wdio/sumologic-reporter
     // - @wdio/cli, @wdio/config, @wdio/sync, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    // logLevels: {
-    //     webdriver: 'info',
-    //     '@wdio/applitools-service': 'info'
-    // },
+    logLevels: {
+        // webdriver: 'info',
+        '@wdio/mocha-framework': 'error'
+    },
     //
     // Set directory to store all logs into
-    // outputDir: __dirname,
+    outputDir: './logs',
 
     sync: true,
     // If you only want to run your tests until a specific amount of tests have failed use
@@ -189,7 +186,6 @@ exports.config = {
             disableWebdriverScreenshotsReporting: true,
         }]
     ],
-
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -275,12 +271,14 @@ exports.config = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        allure.addFeature(suite.name);
+        allure.addDescription(suite.name);
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    beforeTest: function () {
+    beforeTest: function (test, context) {
         const chai = require('chai')
         const chaiWebdriver = require('chai-webdriverio').default
         chai.use(chaiWebdriver(browser))
@@ -290,10 +288,9 @@ exports.config = {
         global.expect = chai.expect;
         global.to = chai.to;
 
-        const allure = require('@wdio/allure-reporter').default
-        global.allure = allure;
-
         allure.addEnvironment("BROWSER", browser.capabilities.browserName);
+        allure.addDescription(test.title);
+        allure.addTestId(test.title);
     },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
@@ -356,26 +353,9 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    onComplete: function () {
-        const reportError = new Error('Could not generate Allure report')
-        const generation = allure(['generate', './Reporting/video-reports/allure-report', '--clean'])
-        return new Promise((resolve, reject) => {
-            const generationTimeout = setTimeout(
-                () => reject(reportError),
-                5000)
+    //  onComplete: function (exitCode, config, capabilities, results) {
+    // },
 
-            generation.on('exit', function (exitCode) {
-                clearTimeout(generationTimeout)
-
-                if (exitCode !== 0) {
-                    return reject(reportError)
-                }
-
-                console.log('Allure report successfully generated')
-                resolve()
-            })
-        })
-    }
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session

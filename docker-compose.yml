@@ -19,4 +19,15 @@ services:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
     restart: on-failure:3   
+  chrome:
+      image: selenium/node-chrome-debug:latest
+      volumes:
+        - /dev/shm:/dev/shm
+      depends_on:
+        - selenium-hub
+      scale: 2
+      environment:
+        - HUB_HOST=selenium-hub
+        - HUB_PORT=4444
+      restart: on-failure:3   
          

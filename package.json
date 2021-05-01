@@ -4,7 +4,7 @@
   "description": "This framework is to automate web applications using webdriver.io with mocha framework",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/wdio wdio.conf.js",
+    "test": "npx wdio wdio.conf.js",
     "cleanup": "rmdir /Q /S Reporting",
     "allureReport": "./node_modules/.bin/allure generate ./Reporting/video-reports/allure-raw -o ./Reporting/video-reports/allure-report --clean && allure open ./Reporting/video-reports/allure-report"
   },

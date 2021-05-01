@@ -11,3 +11,8 @@ export const waitAndClick = (element, timeout) => {
     element.waitForDisplayed({ timeout });
     element.click();
 }
+
+export const waitAndSetValue = (element, value, timeout) => {
+    element.waitForDisplayed({ timeout });
+    element.setValue(value);
+}
