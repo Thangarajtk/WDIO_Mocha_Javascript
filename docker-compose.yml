@@ -29,5 +29,14 @@ services:
       environment:
         - HUB_HOST=selenium-hub
         - HUB_PORT=4444
-      restart: on-failure:3   
-         
+      restart: on-failure:3  
+  jenkins:
+      image: jenkins/jenkins:lts
+      privileged: true
+      user: root
+      ports:
+        - 8081:8080
+        - 50000:50000
+      container_name: jenkins
+      volumes:
+        - D:/jenkins_home:/var/jenkins_home
