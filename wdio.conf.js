@@ -283,10 +283,14 @@ exports.config = {
         const chaiWebdriver = require('chai-webdriverio').default
         chai.use(chaiWebdriver(browser))
 
-        global.assert = chai.assert;
-        global.should = chai.should;
+        // Configurations
+        chai.config.truncateThreshold = 0; // To disable truncating; default value is 40
+        chai.config.includeStack = true; // To get detailed Stack trace; default value - false
+        chai.config.showDiff = true; // To get the difference between actual and expected; default value - true
+
+        global.assert = chai.assert; // TDD Style
+        global.should = chai.should();
         global.expect = chai.expect;
-        global.to = chai.to;
 
         allure.addEnvironment("BROWSER", browser.capabilities.browserName);
         allure.addDescription(test.title);

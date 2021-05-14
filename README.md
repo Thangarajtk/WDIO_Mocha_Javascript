@@ -32,11 +32,12 @@ On the terminal, Run command `npm run cleanup` to clean the "Reporting" director
 - Mocha framework
 - Chai Assetions
 - Page Object design pattern
-- Support for cross browser testing
+- Support for cross browser testing and Parallel execution
 - Babel Setup
 - Docker (Grid - Hub + Node)
+- Dockerized Jenkins
 
-# Sample Allure Reporter integrated with Execution Video Reporter
+# Sample Allure Reporter along with Execution Video
 
 <img src = "https://user-images.githubusercontent.com/48508827/118312741-6f37d900-b50f-11eb-9b4c-8912f61cb46c.PNG" height = "500">
 
