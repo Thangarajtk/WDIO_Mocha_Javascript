@@ -1,4 +1,4 @@
-class DynamicSelectorUtils {
+class DynamicSelector {
 
     /**
      * Method to generate dynamic selector for the test
@@ -10,4 +10,4 @@ class DynamicSelectorUtils {
        return selectorStr.replace(valueToBeReplaced, replaceValue);
     }
 }
-module.exports = new DynamicSelectorUtils();
+module.exports = new DynamicSelector();
