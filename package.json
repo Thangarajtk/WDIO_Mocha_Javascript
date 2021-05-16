@@ -29,6 +29,7 @@
     "allure-commandline": "^2.13.8",
     "chai": "^4.3.4",
     "chai-webdriverio": "^1.0.0",
+    "eslint": "^7.26.0",
     "mocha": "^8.3.2",
     "wdio-docker-service": "^3.1.2",
     "wdio-video-reporter": "^3.1.1",

@@ -10,12 +10,19 @@ This is a sample WebdriverIO (v7) Mocha framework project to automate web applic
 ## Pre-requisites
 1. Install [NodeJS](https://nodejs.org/en/download/) >= 12.16.1
 2. Download Visual Studio Code [IDE](https://code.visualstudio.com/download) based on the OS.
+3. Install Docker and make sure docker is in running state.
 
-## Installation
+## Project Setup and Dependencies Installation Steps
 1. Clone the project from GitHub. 
 2. Open `Terminal` from the project root directory `WDIO_Mocha_Javascript`  on the VS code.
 3. On the terminal, Run command `npm install` to install all the dependencies present in the package.json file.
-4. On the terminal, Run command `npm test` to execute the script.
+
+## Steps to execute tests locally
+1. On the terminal, Run command `npm test` to execute the scripts locally.
+
+## Steps to execute tests on Docker container
+1. On the terminal, Run command `docker-compose up` to start the docker service. 
+2. Open new terminal and Run command `npm test` to execute the scripts on docker container.
 
 ## Reports
 - allure-reporter 
