@@ -1,7 +1,7 @@
 # WebDriverIO_Mocha_Javascript
-[WebdriverIO 7.5.1](http://webdriver.io/)
+[WebdriverIO](http://webdriver.io/)
 
-<img src = "https://miro.medium.com/max/2488/1*2ntKtVBowGdACso6Gcmy1A.jpeg" height = "175"> <img src = "https://user-images.githubusercontent.com/48508827/118311500-9db4b480-b50d-11eb-9f5c-7ce75b1d4ce5.png" height = "175">
+<img src = "https://miro.medium.com/max/2488/1*2ntKtVBowGdACso6Gcmy1A.jpeg" height = "175"> <img src = "https://user-images.githubusercontent.com/48508827/118311500-9db4b480-b50d-11eb-9f5c-7ce75b1d4ce5.png" height = "175" width = "350">
 
 WebdriverIO is a progressive automation framework built to automate modern web and mobile applications. It simplifies the interaction with your app and provides a set of plugins that help you create a scalable, robust and flakiness test suite.
 
