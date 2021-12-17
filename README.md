@@ -8,7 +8,7 @@ WebdriverIO is a progressive automation framework built to automate modern web a
 This is a sample WebdriverIO (v7) Mocha framework project to automate web applications using Javascript. This framework was designed with Page Object Pattern.
 
 ## Pre-requisites
-1. Install [NodeJS](https://nodejs.org/en/download/) >= 12.16.1
+1. Install [NodeJS](https://nodejs.org/en/download/) > 16
 2. Download Visual Studio Code [IDE](https://code.visualstudio.com/download) based on the OS.
 3. Install Docker and make sure docker is in running state.
 
