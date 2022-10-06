@@ -15,10 +15,10 @@ This is a sample WebdriverIO (v7) Mocha framework project to automate web applic
 ## Project Setup and Dependencies Installation Steps
 1. Clone the project from GitHub. 
 2. Open `Terminal` from the project root directory `WDIO_Mocha_Javascript`  on the VS code.
-3. On the terminal, Run command `npm install` to install all the dependencies present in the package.json file.
+3. On the terminal, Run command `npm install` to install all the dependencies present in the `package.json` file.
 
 ## Steps to execute tests locally
-1. On the terminal, Run command `npm test` to execute the scripts locally.
+1. Run command `npm test` from terminal to execute the scripts locally.
 
 ## Steps to execute tests on Docker container
 1. On the terminal, Run command `docker-compose up` to start the docker service. 

@@ -2,40 +2,32 @@ const video_reporter = require('wdio-video-reporter');
 const allure = require('@wdio/allure-reporter').default
 
 global.allure = allure;
-
-/**
- * This is the Configuration file for WebDriverIO
- */
 exports.config = {
     //
     // ====================
     // Runner Configuration
     // ====================
     //
-    // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
-    // on a remote machine).
-    runner: 'local',
-    //
-    // Override default path ('/wd/hub') for chromedriver service.
-    hostname: 'localhost',
-    port: 4444,
-    path: '/wd/hub',
     //
     // ==================
     // Specify Test Files
     // ==================
     // Define which test specs should run. The pattern is relative to the directory
-    // from which `wdio` was called. Notice that, if you are calling `wdio` from an
-    // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
-    // directory is where your package.json resides, so `wdio` will be called from there.
+    // from which `wdio` was called.
+    //
+    // The specs are defined as an array of spec files (optionally using wildcards
+    // that will be expanded). The test for each spec file will be run in a separate
+    // worker process. In order to have a group of spec files run in the same worker
+    // process simply enclose them in an array within the specs array.
+    //
+    // If you are calling `wdio` from an NPM script (see https://docs.npmjs.com/cli/run-script),
+    // then the current working directory is where your `package.json` resides, so `wdio`
+    // will be called from there.
     //
     specs: [
         './test/specs/example.e2e.js',
         './test/specs/orangeHrm.spec.js'
     ],
-
-    // suites: { 
-    // }, 
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -60,47 +52,21 @@ exports.config = {
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://docs.saucelabs.com/reference/platforms-configurator
+    // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
+    
+        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+        // grid with only 5 firefox instances available you can make sure that not more than
+        // 5 instances get started at a time.
         maxInstances: 5,
+        //
         browserName: 'chrome',
-        acceptInsecureCerts: true,
-        'goog:chromeOptions': {
-            // to run chrome headless the following flags are required
-            // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-            args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu'],
-        }
-        //
-        // Parameter to ignore some or all default flags
-        // - if value is true: ignore all DevTools 'default flags' and Puppeteer 'default arguments'
-        // - if value is an array: DevTools filters given default arguments
-        // 'wdio:devtoolsOptions': {
-        //    ignoreDefaultArgs: true,
-        //    ignoreDefaultArgs: ['--disable-sync', '--disable-extensions'],
-        // }
-    },
-    {
-        // maxInstances can get overwritten per capability. So if you have an in house Selenium
-        // grid with only 5 firefox instance available you can make sure that not more than
-        // 5 instance gets started at a time.
-        maxInstances: 5,
-        browserName: 'firefox',
-        specs: [
-            './test/specs/example.e2e.js',
-            './test/specs/orangeHrm.spec.js'
-        ],
-        'moz:firefoxOptions': {
-            // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
-            // args: ['-headless']
-        },
+        acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to exclude.
+        // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        excludeDriverLogs: ['bugreport', 'server'],
-        //
-        // Parameter to ignore some or all Puppeteer default arguments
-        // ignoreDefaultArgs: ['-foreground'], // set value to true to ignore all default arguments
+        // excludeDriverLogs: ['bugreport', 'server'],
     }],
     //
     // ===================
@@ -109,26 +75,22 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'error',
+    logLevel: 'info',
     //
     // Set specific log levels per logger
     // loggers:
     // - webdriver, webdriverio
-    // - @wdio/applitools-service, @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
+    // - @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
     // - @wdio/mocha-framework, @wdio/jasmine-framework
-    // - @wdio/local-runner, @wdio/lambda-runner
+    // - @wdio/local-runner
     // - @wdio/sumologic-reporter
-    // - @wdio/cli, @wdio/config, @wdio/sync, @wdio/utils
+    // - @wdio/cli, @wdio/config, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevels: {
-        // webdriver: 'info',
-        '@wdio/mocha-framework': 'error'
-    },
+    // logLevels: {
+    //     webdriver: 'info',
+    //     '@wdio/appium-service': 'info'
+    // },
     //
-    // Set directory to store all logs into
-    outputDir: './logs',
-
-    sync: true,
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
     bail: 0,
@@ -137,7 +99,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: '',
+    baseUrl: 'http://localhost',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -153,11 +115,11 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone', 'docker'],
-
+    services: ['selenium-standalone','docker'],
+    
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
-    // see also: https://webdriver.io/docs/frameworks.html
+    // see also: https://webdriver.io/docs/frameworks
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
@@ -165,68 +127,29 @@ exports.config = {
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
+    //
     // Delay in seconds between the spec file retry attempts
     // specFileRetriesDelay: 0,
+    //
     // Whether or not retried specfiles should be retried immediately or deferred to the end of the queue
     // specFileRetriesDeferred: false,
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
-    // see also: https://webdriver.io/docs/dot-reporter.html
+    // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec',
-        [video_reporter, {
-            saveAllVideos: true,       // If true, also saves videos for successful test cases
-            videoSlowdownMultiplier: 15, // Higher to get slower videos, lower for faster videos [Value 1-100]
-            videoRenderTimeout: 5,
-            outputDir: './Reporting/video-reports',
-        }],
-        ['allure', {
-            outputDir: './Reporting/video-reports/allure-raw',
-            disableWebdriverStepsReporting: true,
-            disableWebdriverScreenshotsReporting: true,
-        }]
-    ],
+                'dot',
+                ['allure', {
+                    outputDir: 'allure-results'
+                }],
+                'video'],
+    
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000,
-        bail: true
-    },
-    // For convenience, if ts-node or @babel/register modules are detected
-    // they are automatically loaded for config parsing so that TypeScript and
-    // future ES features can be used in wdio configs, and are also
-    // automatically loaded for test running so that tests can be written
-    // using TypeScript and future ES features.
-    // Because this may not be ideal in every situation, the following options
-    // may be used to customize the loading for test running, incase it has
-    // other requirements.
-    autoCompileOpts: {
-        //
-        // To disable auto-loading entirely set this to false.
-        autoCompile: true, // <boolean> Disable this to turn off autoloading. Note: When disabling, you will need to handle calling any such libraries yourself.
-        //
-        // If you have ts-node installed, you can customize how options are passed to it here:
-        // Any valid ts-node config option is allowed. Alternatively the ENV Vars could also be used instead of this.
-        // See also: https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
-        // See also RegisterOptions in https://github.com/TypeStrong/ts-node/blob/master/src/index.ts
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: 'tsconfig.json'
-        },
-        // If you have tsconfig-paths installed and provide a tsConfigPathsOpts
-        // option, it will be automatically registered during bootstrap.
-        tsConfigPathsOpts: {
-            baseUrl: './'
-        },
-        //
-        // If @babel/register is installed, you can customize how options are passed to it here:
-        // Any valid @babel/register config option is allowed.
-        // https://babeljs.io/docs/en/babel-register#specifying-options
-        babelOpts: {
-            ignore: []
-        },
+        timeout: 60000
     },
     //
     // =====
@@ -244,19 +167,32 @@ exports.config = {
     // onPrepare: function (config, capabilities) {
     // },
     /**
+     * Gets executed before a worker process is spawned and can be used to initialise specific service
+     * for that worker as well as modify runtime environments in an async fashion.
+     * @param  {String} cid      capability id (e.g 0-0)
+     * @param  {[type]} caps     object containing capabilities for session that will be spawn in the worker
+     * @param  {[type]} specs    specs to be run in the worker process
+     * @param  {[type]} args     object that will be merged with the main configuration once worker is initialised
+     * @param  {[type]} execArgv list of string arguments passed to the worker process
+     */
+    // onWorkerStart: function (cid, caps, specs, args, execArgv) {
+    // },
+    /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
      * to manipulate configurations depending on the capability or spec.
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
+     * @param {String} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs) {
+    // beforeSession: function (config, capabilities, specs, cid) {
     // },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
      * @param {Array.<Object>} capabilities list of capabilities details
-     * @param {Array.<String>} specs List of spec file paths that are to be run
+     * @param {Array.<String>} specs        List of spec file paths that are to be run
+     * @param {Object}         browser      instance of created browser/device session
      */
     // before: function (capabilities, specs) {
     // },
@@ -271,31 +207,13 @@ exports.config = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    beforeSuite: function (suite) {
-        allure.addFeature(suite.name);
-        allure.addDescription(suite.name);
-    },
+    // beforeSuite: function (suite) {
+    // },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    beforeTest: function (test, context) {
-        const chai = require('chai')
-        const chaiWebdriver = require('chai-webdriverio').default
-        chai.use(chaiWebdriver(browser))
-
-        // Configurations
-        chai.config.truncateThreshold = 0; // To disable truncating; default value is 40
-        chai.config.includeStack = true; // To get detailed Stack trace; default value - false
-        chai.config.showDiff = true; // To get the difference between actual and expected; default value - true
-
-        global.assert = chai.assert; // TDD Style
-        global.should = chai.should();
-        global.expect = chai.expect;
-
-        allure.addEnvironment("BROWSER", browser.capabilities.browserName);
-        allure.addDescription(test.title);
-        allure.addTestId(test.title);
-    },
+    // beforeTest: function (test, context) {
+    // },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
@@ -309,13 +227,21 @@ exports.config = {
     // afterHook: function (test, context, { error, result, duration, passed, retries }) {
     // },
     /**
-     * Function to be executed after a test (in Mocha/Jasmine).
+     * Function to be executed after a test (in Mocha/Jasmine only)
+     * @param {Object}  test             test object
+     * @param {Object}  context          scope object the test was executed with
+     * @param {Error}   result.error     error object in case the test fails, otherwise `undefined`
+     * @param {Any}     result.result    return object of test function
+     * @param {Number}  result.duration  duration of test
+     * @param {Boolean} result.passed    true if test has passed, otherwise false
+     * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: function (test, context, { error, result, duration, passed, retries }) {
-        if (error) {
-            browser.takeScreenshot();
+    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        if (!passed) {
+            await browser.takeScreenshot();
         }
     },
+
 
     /**
      * Hook that gets executed after the suite has ended
@@ -357,9 +283,8 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    //  onComplete: function (exitCode, config, capabilities, results) {
+    // onComplete: function(exitCode, config, capabilities, results) {
     // },
-
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
