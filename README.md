@@ -37,7 +37,7 @@ On the terminal, Run command `npm run cleanup` to clean the "Reporting" director
 
 # Key Features
 - Mocha framework
-- Chai Assetions
+- expect-webdriverio
 - Page Object design pattern
 - Support for cross browser testing and Parallel execution
 - Babel Setup

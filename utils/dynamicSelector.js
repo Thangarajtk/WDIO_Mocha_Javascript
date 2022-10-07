@@ -10,4 +10,4 @@ class DynamicSelector {
         return selectorStr.replace(valueToBeReplaced, replaceValue);
     }
 }
-module.exports = new DynamicSelector();
+export default new DynamicSelector();

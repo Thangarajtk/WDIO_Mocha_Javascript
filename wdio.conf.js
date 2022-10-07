@@ -1,9 +1,9 @@
-const video_reporter = require('wdio-video-reporter');
-const allure = require('@wdio/allure-reporter').default
+import video_reporter from 'wdio-video-reporter';
+import allure from '@wdio/allure-reporter';
 
 global.allure = allure;
 
-exports.config = {
+export const config = {
     //
     // ====================
     // Runner Configuration
@@ -87,10 +87,12 @@ exports.config = {
     // - @wdio/sumologic-reporter
     // - @wdio/cli, @wdio/config, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    // logLevels: {
-    //     webdriver: 'info',
-    //     '@wdio/appium-service': 'info'
-    // },
+    logLevels: {
+        '@wdio/mocha-framework': 'debug'
+    },
+    //
+    // Set directory to store all logs into
+    outputDir: './logs',
     //
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
