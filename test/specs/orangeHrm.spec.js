@@ -5,17 +5,17 @@ import { username, password } from '../../resources/config';
 
 describe('OrangeHRM Login Test', () => {
 
-    it('should open the application and display the login form', () => {
-        LoginPage.open();
+    it('should open the application and display the login form', async () => {
+        await LoginPage.open();
         
-        expect(LoginPage.loginForm).to.exist;
+        await expect(LoginPage.loginForm).to.exist;
     });
 
-    it('should allow access with correct credential', () => {
-        waitAndSetValue(LoginPage.username, username, 1000);
-        waitAndSetValue(LoginPage.password, password, 500);
-        LoginPage.loginBtn.click();
+    it('should allow access with correct credential', async () => {
+        await waitAndSetValue(LoginPage.username, username, 1000);
+        await waitAndSetValue(LoginPage.password, password, 500);
+        await LoginPage.loginBtn.click();
 
-        expect(DashboardPage.welcomeUser).to.exist;
+        await expect(DashboardPage.welcomeUser).to.exist;
     });
 });

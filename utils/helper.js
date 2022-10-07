@@ -7,12 +7,12 @@ export const waitForTextChange = (element, text, timeout) => {
     );
 }
 
-export const waitAndClick = (element, timeout) => {
-    element.waitForDisplayed({ timeout });
-    element.click();
+export const waitAndClick = async (element, timeout) => {
+    await element.waitForDisplayed({ timeout });
+    await element.click();
 }
 
-export const waitAndSetValue = (element, value, timeout) => {
-    element.waitForDisplayed({ timeout });
-    element.setValue(value);
+export const waitAndSetValue = async (element, value, timeout) => {
+    await element.waitForDisplayed({ timeout });
+    await element.setValue(value);
 }

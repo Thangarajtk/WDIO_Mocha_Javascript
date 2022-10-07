@@ -7,7 +7,7 @@ class DynamicSelector {
      * @param {*} replaceValue - Provide the replacement value
      */
     getDynamicSelector(selectorStr, valueToBeReplaced, replaceValue) {
-       return selectorStr.replace(valueToBeReplaced, replaceValue);
+        return selectorStr.replace(valueToBeReplaced, replaceValue);
     }
 }
 module.exports = new DynamicSelector();

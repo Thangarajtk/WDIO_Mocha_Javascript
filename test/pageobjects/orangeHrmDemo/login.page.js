@@ -8,7 +8,7 @@ class LoginPage extends Page {
     get loginBtn() { return $('#btnLogin') }
 
     open() {
-        super.open('login');
+        return super.open('web/index.php/auth/login');
     }
 }
 
