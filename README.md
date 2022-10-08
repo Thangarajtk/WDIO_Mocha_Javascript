@@ -8,7 +8,7 @@ WebdriverIO is a progressive automation framework built to automate modern web a
 This is a sample WebdriverIO (v7) Mocha framework project to automate web applications using Javascript. This framework was designed with Page Object Pattern.
 
 ## Pre-requisites
-1. Install [NodeJS](https://nodejs.org/en/download/) > 16
+1. Install [NodeJS](https://nodejs.org/en/download/) >= 16
 2. Download Visual Studio Code [IDE](https://code.visualstudio.com/download) based on the OS.
 3. Install Docker and make sure docker is in running state.
 
@@ -18,11 +18,10 @@ This is a sample WebdriverIO (v7) Mocha framework project to automate web applic
 3. On the terminal, Run command `npm install` to install all the dependencies present in the `package.json` file.
 
 ## Steps to execute tests locally
-1. Run command `npm test` from terminal to execute the scripts locally.
+1. Run command `npm run test` from terminal to execute the scripts locally.
 
 ## Steps to execute tests on Docker container
-1. On the terminal, Run command `docker-compose up` to start the docker service. 
-2. Open new terminal and Run command `npm test` to execute the scripts on docker container.
+1. Run command `npm run test:docker` to execute the scripts on docker container.
 
 ## Reports
 - allure-reporter 

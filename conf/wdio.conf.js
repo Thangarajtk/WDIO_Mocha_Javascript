@@ -9,6 +9,7 @@ export const config = {
     // Runner Configuration
     // ====================
     //
+    runner: 'local',
     //
     // ==================
     // Specify Test Files
@@ -61,9 +62,17 @@ export const config = {
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
         maxInstances: 5,
-        //
         browserName: 'chrome',
-        acceptInsecureCerts: true
+        acceptInsecureCerts: true,
+        'goog:chromeOptions': {
+            args: [
+                '--no-sandbox',
+                '--disable-infobars',
+                '--disable-gpu',
+                // '--headless',
+                '--window-size=1440,735'
+            ],
+        }
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -76,7 +85,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'debug',
+    logLevel: 'error',
     //
     // Set specific log levels per logger
     // loggers:
@@ -88,7 +97,7 @@ export const config = {
     // - @wdio/cli, @wdio/config, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevels: {
-        '@wdio/mocha-framework': 'debug'
+        '@wdio/mocha-framework': 'error'
     },
     //
     // Set directory to store all logs into
@@ -102,7 +111,7 @@ export const config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: '',
+    baseUrl: 'http://localhost',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -118,7 +127,7 @@ export const config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone','docker'],
+    services: ['selenium-standalone'],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -146,10 +155,10 @@ export const config = {
                     saveAllVideos: true,       // If true, also saves videos for successful test cases
                     videoSlowdownMultiplier: 15, // Higher to get slower videos, lower for faster videos [Value 1-100]
                     videoRenderTimeout: 5,
-                    outputDir: './Reporting/video-reports',
+                    outputDir: './reports/video-reports',
                 }],
                 ['allure', {
-                    outputDir: './Reporting/video-reports/allure-raw',
+                    outputDir: './reports/video-reports/allure-raw',
                     disableWebdriverStepsReporting: true,
                     disableWebdriverScreenshotsReporting: true,
                 }]],
@@ -204,8 +213,9 @@ export const config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+     before: function (capabilities, specs) {
+        require('expect-webdriverio').setOptions({ wait: 2000, interval: 100 });
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name

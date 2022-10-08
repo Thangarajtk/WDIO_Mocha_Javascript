@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "description": "This framework is to automate web applications using webdriver.io with Javascript and mocha",
     "main": "index.js",
-    "author": "",
+    "author": "Thangaraj",
     "license": "ISC",
     "devDependencies": {
         "@babel/cli": "^7.19.3",
@@ -22,9 +22,17 @@
         "webdriverio": "^7.25.1"
     },
     "scripts": {
-        "test": "wdio run wdio.conf.js",
+        "test": "wdio run ./conf/wdio.conf.js",
         "checkupdates": "npx npm-check-updates -u",
         "cleanup": "rmdir /Q /S Reporting",
-        "allureReport": "./node_modules/.bin/allure generate ./Reporting/video-reports/allure-raw -o ./Reporting/video-reports/allure-report --clean && allure open ./Reporting/video-reports/allure-report"
-    }
+        "generateAllureReport": "allure generate ./reports/video-reports/allure-raw -o ./reports/video-reports/allure-report --clean && allure open ./reports/video-reports/allure-report",
+        "pretest:docker": "docker-compose up -d",
+        "test:docker": "npx wdio ./conf/wdio.docker.conf.js",
+        "posttest:docker": "docker-compose down"
+    },
+    "keywords": [
+        "WebdriverIO",
+        "javascript",
+        "mocha framework"
+      ]
 }
