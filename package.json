@@ -24,15 +24,20 @@
     "scripts": {
         "test": "wdio run ./conf/wdio.conf.js",
         "checkupdates": "npx npm-check-updates -u",
-        "cleanup": "rmdir /Q /S Reporting",
+        "cleanup": "rmdir /Q /S reports",
         "generateAllureReport": "allure generate ./reports/video-reports/allure-raw -o ./reports/video-reports/allure-report --clean && allure open ./reports/video-reports/allure-report",
         "pretest:docker": "docker-compose up -d",
         "test:docker": "npx wdio ./conf/wdio.docker.conf.js",
         "posttest:docker": "docker-compose down"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Thangarajtk/WDIO_Mocha_Javascript.git"
+    },
     "keywords": [
         "WebdriverIO",
         "javascript",
-        "mocha framework"
-      ]
+        "mocha framework",
+        "docker"
+    ]
 }
