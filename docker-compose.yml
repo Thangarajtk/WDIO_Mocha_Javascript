@@ -2,34 +2,50 @@
 # Add the `-d` flag at the end for detached execution
 version: "3"
 services:
+  chrome:
+    image: selenium/node-chrome:4.1.2-20220217
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    scale: 1
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    restart: on-failure
+
+  edge:
+    image: selenium/node-edge:4.1.2-20220217
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    scale: 1
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    restart: on-failure
+
+  firefox:
+    image: selenium/node-firefox:4.1.2-20220217
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    scale: 1
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    restart: on-failure
+
   selenium-hub:
-    image: selenium/hub:latest
+    image: selenium/hub:4.1.2-20220217
     container_name: selenium-hub
     restart: always
     ports:
+      - "4442:4442"
+      - "4443:4443"
       - "4444:4444"
-  firefox:
-    image: selenium/node-firefox-debug:latest
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    scale: 2
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-    restart: on-failure:3
-  chrome:
-    image: selenium/node-chrome-debug:latest
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    scale: 2
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-    restart: on-failure:3
   jenkins:
     image: jenkins/jenkins:lts
     privileged: true
