@@ -1,4 +1,4 @@
-import Page from '../orangeHrmDemo/page';
+import Page from '../orangeHrmDemo/page.js';
 
 class LoginPage extends Page {
 

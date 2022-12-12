@@ -1,5 +1,5 @@
-import LoginPage from  '../pageobjects/herokuApp/login.page';
-import SecurePage from '../pageobjects/herokuApp/secure.page';
+import LoginPage from  '../pageobjects/herokuApp/login.page.js';
+import SecurePage from '../pageobjects/herokuApp/secure.page.js';
 
 describe('My Login application', () => {
     it('should login with valid credentials', async () => {

@@ -1,5 +1,6 @@
 import video_reporter from 'wdio-video-reporter';
 import allure from '@wdio/allure-reporter';
+import { setOptions } from 'expect-webdriverio'
 
 global.allure = allure;
 
@@ -28,7 +29,7 @@ export const config = {
     //
     specs: [
         '../test/specs/example.e2e.js',
-        '../test/specs/orangeHrm.spec.js'
+        // '../test/specs/orangeHrm.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -51,6 +52,12 @@ export const config = {
     // from the same test should run tests.
     //
     maxInstances: 10,
+    //
+    // Inserts WebdriverIO's globals (e.g. `browser`, `$` and `$$`) into the global environment.
+    // If you set to `false`, you should import from `@wdio/globals`. Note: WebdriverIO doesn't
+    // handle injection of test framework specific globals.
+    //
+    injectGlobals: true,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -98,7 +105,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'error',
+    logLevel: 'info',
     //
     // Set specific log levels per logger
     // loggers:
@@ -110,7 +117,7 @@ export const config = {
     // - @wdio/cli, @wdio/config, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevels: {
-        '@wdio/mocha-framework': 'error'
+        '@wdio/mocha-framework': 'info'
     },
     //
     // Set directory to store all logs into
@@ -227,7 +234,7 @@ export const config = {
      * @param {Object}         browser      instance of created browser/device session
      */
     before: function (capabilities, specs) {
-        require('expect-webdriverio').setOptions({ wait: 2000, interval: 100 });
+        setOptions({ wait: 2000, interval: 100 });
     },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -274,7 +281,6 @@ export const config = {
             await browser.takeScreenshot();
         }
     },
-
 
     /**
      * Hook that gets executed after the suite has ended
