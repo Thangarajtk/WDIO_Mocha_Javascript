@@ -29,7 +29,7 @@ export const config = {
     //
     specs: [
         '../test/specs/example.e2e.js',
-        // '../test/specs/orangeHrm.spec.js'
+        '../test/specs/orangeHrm.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
