@@ -1,7 +1,7 @@
-import LoginPage from '../pageobjects/orangeHrmDemo/login.page';
-import Topbar from '../pageobjects/orangeHrmDemo/topbar.page';
-import { waitAndSetValue } from '../../utils/helper';
-import { username, password } from '../../resources/config';
+import LoginPage from '../pageobjects/orangeHrmDemo/login.page.js';
+import Topbar from '../pageobjects/orangeHrmDemo/topbar.page.js';
+import { waitAndSetValue } from '../../utils/helper.js';
+import { username, password } from '../../resources/config.js';
 
 describe('OrangeHRM Login Test', () => {
 

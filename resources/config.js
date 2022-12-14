@@ -1,5 +1,6 @@
-module.exports = {
-    emailId: '<Enter valid test data>',
-    username: 'Admin',
-    password: 'admin123',
-}
+// ES Modules
+export const emailId = '<Enter valid test data>';
+
+export const username = 'Admin';
+
+export const password = 'admin123';
