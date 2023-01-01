@@ -1,13 +1,8 @@
-const keys = {
+export const keys = {
     ENTER: 'Enter',
     ESCAPE: 'Escape',
 }
 
-const search = {
+export const search = {
     SEARCH_KEYWORD: '<Enter the search data>',
-}
-
-module.exports = {
-    keys,
-    search
 }
