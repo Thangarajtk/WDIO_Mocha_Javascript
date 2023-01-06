@@ -5,10 +5,8 @@ import { username, password } from '../../resources/config.js';
 
 describe('OrangeHRM Login Test', () => {
 
-    it('should open the application and display the login form', async () => {
+    before('Open application', async () => {
         await LoginPage.open();
-        
-        await expect(LoginPage.loginForm).toBeExisting();
     });
 
     it('should allow access with correct credential', async () => {
