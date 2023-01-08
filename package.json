@@ -19,6 +19,7 @@
         "@wdio/mocha-framework": "^8.1.2",
         "@wdio/selenium-standalone-service": "^8.1.2",
         "@wdio/spec-reporter": "^8.1.2",
+        "allure-commandline": "^2.20.1",
         "wdio-docker-service": "^3.2.1",
         "wdio-video-reporter": "^3.4.0",
         "webdriverio": "^8.1.2"
@@ -31,7 +32,8 @@
         "posttest:docker": "docker-compose down",
         "checkupdates": "npx npm-check-updates -u",
         "cleanup": "rmdir /Q /S reports",
-        "generateAllureReport": "allure generate ./reports/video-reports/allure-raw -o ./reports/video-reports/allure-report --clean && allure open ./reports/video-reports/allure-report"
+        "generateAllureReport": "allure generate ./reports/video-reports/allure-raw -o ./reports/video-reports/allure-report --clean && allure open ./reports/video-reports/allure-report",
+        "allurereport:ci": "allure generate ./reports/video-reports/allure-raw -o ./reports/video-reports/allure-report --clean"
     },
     "repository": {
         "type": "git",

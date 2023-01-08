@@ -5,13 +5,13 @@ import { username, password } from '../../resources/config.js';
 
 describe('OrangeHRM Login Test', () => {
 
-    before('Open application', async () => {
-        await LoginPage.open();
-    });
-
     it('should allow access with correct credential', async () => {
+        await LoginPage.open();
+
+        await expect(LoginPage.loginForm).toBeExisting();
+        
         await waitAndSetValue(LoginPage.username, username, 1000);
-        await waitAndSetValue(LoginPage.password, password, 500);
+        await waitAndSetValue(LoginPage.password, password, 1000);
         await LoginPage.loginBtn.click();
 
         await expect(Topbar.usernameDropdownMenu).toBeExisting();

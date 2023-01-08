@@ -3,7 +3,8 @@
         "types": [
             "node",
             "@wdio/globals/types",
-            "@wdio/mocha-framework"
+            "@wdio/mocha-framework",
+            "expect-webdriverio"
         ]
     }
 }
