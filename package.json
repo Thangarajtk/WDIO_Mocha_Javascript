@@ -25,10 +25,9 @@
         "webdriverio": "^8.1.2"
     },
     "scripts": {
-        "pretest": "rmdir /Q /S reports",
-        "test": "wdio run ./conf/wdio.conf.js",
+        "test": "npx wdio ./src/conf/wdio.conf.js",
         "pretest:docker": "docker-compose up -d",
-        "test:docker": "npx wdio ./conf/wdio.docker.conf.js",
+        "test:docker": "npx wdio ./src/conf/wdio.docker.conf.js",
         "posttest:docker": "docker-compose down",
         "checkupdates": "npx npm-check-updates -u",
         "cleanup": "rmdir /Q /S reports",

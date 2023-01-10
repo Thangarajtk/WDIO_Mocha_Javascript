@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     strategy:
       matrix:
@@ -26,7 +26,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
-    - run: npm ci
+    - name: Install dependencies versions in the package-lock.json
+      run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - name: Run Test
+      run: npm test
+    - uses: actions/upload-artifact@v1
+          if: failure()
+          with:
+            name: logs
+            path: logs
+            

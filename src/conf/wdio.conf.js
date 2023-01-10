@@ -277,7 +277,7 @@ export const config = {
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
-        if (!passed) {
+        if (error) {
             await browser.takeScreenshot();
         }
     },
