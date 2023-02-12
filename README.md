@@ -43,6 +43,7 @@ On the terminal, Run command `npm run cleanup` to clean the "Reporting" director
 - Babel Setup
 - Docker (Grid - Hub + Node)
 - Dockerized Jenkins
+- GitHub actions
 
 # Sample Allure Reporter along with Execution Video
 
