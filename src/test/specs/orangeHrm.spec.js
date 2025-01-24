@@ -10,8 +10,8 @@ describe('OrangeHRM Login Test', () => {
 
         await expect(LoginPage.loginForm).toBeExisting();
         
-        await waitAndSetValue(LoginPage.username, username, 1000);
-        await waitAndSetValue(LoginPage.password, password, 1000);
+                await waitAndSetValue(LoginPage.username, username, 1000);
+            await waitAndSetValue(LoginPage.password, password, 1000);
         await LoginPage.loginBtn.click();
 
         await expect(Topbar.usernameDropdownMenu).toBeExisting();
